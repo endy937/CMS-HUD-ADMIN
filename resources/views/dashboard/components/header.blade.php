@@ -28,8 +28,8 @@
     <div class="brand">
         <a href="index.html" class="brand-logo">
 
-            <img class="h-30px" src="{{ asset('img/Lambang_Kodam_Jaya.png') }}" alt="Logo">
-            <span class="brand-text">KODAM JAYA</span>
+            <img class="h-30px" src="{{ asset('img/MAKMUR.png') }}" alt="Logo">
+            <span class="brand-text">MAKMUR JAYA</span>
         </a>
     </div>
     <!-- END brand -->
