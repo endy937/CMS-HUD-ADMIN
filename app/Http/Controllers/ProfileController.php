@@ -10,7 +10,7 @@ use App\Models\Rank;
 use App\Models\Regu;
 use Illuminate\Http\Request;
 
-class ControllerProfile extends Controller
+class ProfileController extends Controller
 {
     public function index(){
     $data = Profile::where('user_id', auth()->id())
@@ -66,4 +66,29 @@ class ControllerProfile extends Controller
     return redirect()->route('profile_index');
 
     }
+    
+    // Upload photo profile
+    public function uploadPhoto(Request $request)
+{
+    $request->validate([
+        'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
+
+    $user = Auth::user();
+
+    // Hapus foto lama jika perlu
+    $user->photo = null;
+
+    // Simpan file sebagai Base64 string
+    $image = $request->file('photo');
+    $imageData = base64_encode(file_get_contents($image->getRealPath()));
+    $user->photo = 'data:' . $image->getMimeType() . ';base64,' . $imageData;
+
+    $user->save();
+
+    return back()->with('success', 'Profile photo updated successfully!');
+}
+
+
+
 }

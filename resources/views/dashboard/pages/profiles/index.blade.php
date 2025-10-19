@@ -8,9 +8,25 @@
                     <!-- BEGIN profile-sidebar -->
                     <div class="profile-sidebar">
                         <div class="desktop-sticky-top">
-                            <div class="profile-img">
-                                <img src="{{ asset('assets/img/user/profile.jpg') }}" alt="">
+
+                            <div class="profile-img text-center">
+                                <!-- Tampilkan foto sesuai template atau yang sudah tersimpan di database -->
+                                @if (Auth::user()->photo)
+                                    <img src="{{ Auth::user()->photo }}" alt="Profile Photo" class="rounded-circle"
+                                        width="120">
+                                @endif
+
+
+                                <!-- Form upload -->
+                                <form action="{{ route('profile_upload_photo') }}" method="POST"
+                                    enctype="multipart/form-data" class="mt-3">
+                                    @csrf
+                                    <input type="file" name="photo" accept="image/*"
+                                        class="form-control form-control-sm mb-2" required>
+                                    <button type="submit" class="btn btn-sm btn-outline-theme">Update Photo</button>
+                                </form>
                             </div>
+
                             <!-- profile info -->
                             <h4>{{ Auth::user()->name }}</h4>
                             <div class="mb-3 text-inverse text-opacity-50 fw-bold mt-n2">
@@ -44,7 +60,9 @@
                                                             <p>Update your profile settings</p>
                                                         </div>
                                                     </div>
+
                                                     <div class="profile-img-list">
+
                                                         @if ($data->count() > 0)
 
                                                             {{-- <div class="justify-between mb-5">

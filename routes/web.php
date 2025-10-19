@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ControllerProfile;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
@@ -17,11 +17,14 @@ Route::middleware([
 ])->group(function () {
 
     // 🔹 Route untuk Profile 
-    Route::get('profiles', [ControllerProfile::class, 'index'])->name('profile_index');
-    Route::get('profiles/{id}', [ControllerProfile::class, 'edit'])->name('profile_edit');
-    Route::get('create', [ControllerProfile::class, 'create'])->name('profile_create');
-    Route::post('profiles', [ControllerProfile::class, 'store'])->name('profile_store');
-    Route::delete('profiles/{id}/delete', [ControllerProfile::class, 'destroy'])->name('profile_delete');
+    Route::get('profiles', [ProfileController::class, 'index'])->name('profile_index');
+    Route::get('profiles/{id}', [ProfileController::class, 'edit'])->name('profile_edit');
+    Route::get('create', [ProfileController::class, 'create'])->name('profile_create');
+    Route::post('profiles', [ProfileController::class, 'store'])->name('profile_store');
+    Route::delete('profiles/{id}/delete', [ProfileController::class, 'destroy'])->name('profile_delete');
+
+    Route::post('/profiles/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile_upload_photo');
+
 
     // Dashboard utama
     Route::get('/dashboard', function () {
